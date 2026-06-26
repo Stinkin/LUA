@@ -1,0 +1,8 @@
+name = "seto"
+default_targets = ["win32", "win64", "lovejs"]
+build_directory = "makelove-build"
+
+love_files = [
+    "::git-ls-tree::",
+    "-*/.*",
+]
