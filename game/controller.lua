@@ -1,15 +1,33 @@
-local board = require("game.board")
-local state = require("game.state")
-local gameplay = require("game.gameplay")
+--------------------------------------------------
+-- CONTROLLER -- FINISHED
+--
+-- Translates raw hardware input events into semantic 
+-- game actions via unified polymorphic element mapping.
+--
+-- Public API
+--
+-- Input Handlers
+--   update(dt)
+--   mousepressed(x, y, button)
+--   keypressed(key)
+--------------------------------------------------
 
 local layout = require("render.layout")
 local hud = require("render.hud")
 
 local controller = {}
 
+--------------------------------------------------
+-- UPDATE
+--------------------------------------------------
+
 function controller.update(dt)
 
 end
+
+--------------------------------------------------
+-- MOUSE PRESSED
+--------------------------------------------------
 
 function controller.mousepressed(
 
@@ -19,71 +37,36 @@ function controller.mousepressed(
 
 )
 
-    if state.isAnimating() 
-    then
-        return
-    end
-
-    if button ~= 1 then
-        return
+    if button ~= 1 then 
+        return 
     end
 
     --------------------------------------------------
-    -- ADD THREE
+    -- UNIFIED INTERACTION
     --------------------------------------------------
 
-    if hud.isAddThreePressed(
-        x,
-        y
-    ) then
-
-        gameplay.refill(board)
-
-        return
-
-    end
-
-    --------------------------------------------------
-    -- HINT
-    --------------------------------------------------
-
-    if hud.isHintPressed(
-        x,
-        y
-    ) then
-
-        gameplay.showHint(board)
-
-        return
-
-    end
-
-    local slotId =
-
+    local element = 
+        hud.getButtonAt(
+            x,
+            y
+        ) or 
         layout.getSlotAtPosition(
             x,
             y
         )
 
-    if not slotId then
-        return
+    if element then
+        element.pressed()
     end
 
-    local card =
-        board.getCard(slotId)
-
-    if not card then
-        return
-    end
-
-    state.toggleSelection(
-        slotId
-    )
-    gameplay.resolveSelection(board)
 end
 
-function controller.keypressed(key)
+--------------------------------------------------
+-- KEY PRESSED
+--------------------------------------------------
 
+function controller.keypressed(key)
+    -- Reservado para futuras implementaciones (Pausa, Undo, etc.)
 end
 
 return controller

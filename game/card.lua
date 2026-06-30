@@ -1,10 +1,22 @@
+--------------------------------------------------
+-- CARD -- FINISHED
+--
+-- Represents a single immutable game card with its properties,
+-- unique ID representation, and indexed signature.
+--
+-- Public API
+--
+-- Lifecycle
+--   create(color, shape, count, fill)
+--------------------------------------------------
+
 local card = {}
 
 --------------------------------------------------
--- SIGNATURE
+-- SIGNATURE ** PRIVATE FUNCTION **
 --------------------------------------------------
 
-function card.produceSignature(
+local function produceSignature(
 
     color,
     shape,
@@ -23,9 +35,9 @@ function card.produceSignature(
 end
 
 --------------------------------------------------
--- ID
+-- ID ** PRIVATE FUNCTION **
 --------------------------------------------------
-function card.produceId(
+local function produceId(
 
     color,
     shape,
@@ -63,8 +75,13 @@ function card.create(
     self.count = count
     self.fill = fill
 
+    self.id =
+    produceId(
+            color, shape, count,fill
+        )
+
     self.signature =
-        card.produceSignature(
+        produceSignature(
 
             color,
             shape,
@@ -72,10 +89,7 @@ function card.create(
             fill
 
         )
-    self.id =
-        card.produceId(
-            color, shape, count,fill
-        )
+
     return self
 
 end

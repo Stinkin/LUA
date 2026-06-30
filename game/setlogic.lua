@@ -1,14 +1,23 @@
+--------------------------------------------------
+-- SET LOGIC -- FINISHED
+--
+-- Pure mathematical verification for Set rules.
+--
+-- Public API
+--
+-- Queries
+--   isSet(cardA, cardB, cardC)
+--------------------------------------------------
+
 local setlogic = {}
 
 --------------------------------------------------
--- PROPERTY
+-- VALID ** PRIVATE FUNCTION **
 --------------------------------------------------
 
 local function valid(a, b, c)
 
-    local sum =
-        a + b + c
-
+    local sum = a + b + c
     return sum % 3 == 0
 
 end
@@ -17,36 +26,24 @@ end
 -- IS SET
 --------------------------------------------------
 
-function setlogic.isSet(
+function setlogic.isSet(cardA, cardB,cardC) 
 
-    cardA,
-    cardB,
-    cardC
-
-)
-
-    if not cardA
-    or not cardB
-    or not cardC then
-        return false
-    end
+    assert(cardA ~= nil)
+    assert(cardB ~= nil)
+    assert(cardC ~= nil)
 
     local a = cardA.signature
     local b = cardB.signature
     local c = cardC.signature
 
+    assert(a ~= nil)
+    assert(b ~= nil)
+    assert(c ~= nil)
+
     for i = 1, 4 do
-
-        if not valid(
-            a[i],
-            b[i],
-            c[i]
-        ) then
-
+        if not valid( a[i], b[i], c[i]) then
             return false
-
         end
-
     end
 
     return true
